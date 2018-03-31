@@ -18,8 +18,14 @@ exports.signin = async (req,res) => {
            profileImageUrl: payload.picture
        };
        try{
-        user = await db.User.create(newUser);
-        res.status(200).json(user);
+           user = await db.User.create(newUser);
+           res.status(200).json({
+               displayName: user.displayName,
+               profileImageUrl: user.profileImageUrl,
+               id: user._id,
+               token: req.params.token
+           });
+           
        }catch(err){
            res.status(400).json(err);
        }
