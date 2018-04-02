@@ -8,10 +8,15 @@ exports.getBeats = async (req, res, next) => {
                           select: {title: true, bpm: true, createdAt: true, updatedAt: true},
                           options: { sort: { 'updatedAt': -1 }}
                       })
+
+        if(beats === null) {
+            res.status(400).send('no such user');
+        }else {
+            res.status(200).json(beats);
+        }
         
-        res.status(200).json(beats);
     }catch (err) {
-        res.send(err);
+        res.status(400).send(err);
     }  
 }
 
